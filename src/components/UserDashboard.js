@@ -58,7 +58,7 @@ function UserDashboard({ user, setUser }) {
         });
     };
 
-    // Calculate the order total
+    // Calculate the order total.
     const orderTotal = cart.reduce(
         (total, item) => total + item.product.price * item.quantity,
         0
@@ -95,6 +95,17 @@ function UserDashboard({ user, setUser }) {
         navigate('/login');
     };
 
+    // Helper to get the proper image URL.
+    // If product.imageUrl is "sporty-shoes-images/filename.jpg", we extract filename and build "/images/filename.jpg"
+    const getImageUrl = (product) => {
+        if (!product.imageUrl) {
+            return ''; // or a default placeholder image URL.
+        }
+        const parts = product.imageUrl.split('/');
+        const filename = parts[parts.length - 1];
+        return `/images/${filename}`;
+    };
+
     return (
         <div style={{ padding: '20px' }}>
             <header
@@ -126,9 +137,36 @@ function UserDashboard({ user, setUser }) {
                                 alignItems: 'center',
                             }}
                         >
-                            <div>
-                                <strong>{product.name}</strong>
-                                <p>Price: ${product.price.toFixed(2)}</p>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                {/* Display the product image */}
+                                {product.imageUrl ? (
+                                    <img
+                                        src={getImageUrl(product)}
+                                        alt={product.name}
+                                        width="75"
+                                        style={{ marginRight: '10px' }}
+                                    />
+                                ) : (
+                                    <div
+                                        style={{
+                                            width: '75px',
+                                            height: '75px',
+                                            backgroundColor: '#eee',
+                                            marginRight: '10px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: '#999',
+                                            fontSize: '12px'
+                                        }}
+                                    >
+                                        No Image
+                                    </div>
+                                )}
+                                <div>
+                                    <strong>{product.name}</strong>
+                                    <p>Price: ${product.price.toFixed(2)}</p>
+                                </div>
                             </div>
                             <div>
                                 <input
