@@ -19,13 +19,12 @@ function ChangePassword({ admin }) {
         }
         try {
             // Call the change-password endpoint.
-            // Note: In production, you should pass credentials in a safer way.
             await axios.put(
                 `http://localhost:${PORTFORBE}/admin/change-password?adminId=${admin.id}&newPassword=${encodeURIComponent(newPassword)}`
             );
             setMessage("Password changed successfully.");
             // Optionally, navigate away or clear the form
-            // navigate('/dashboard'); // Uncomment if you want to redirect after changing password.
+            // navigate('/dashboard'); // Uncomment if to redirect after changing password.
         } catch (error) {
             console.error(error);
             setMessage("Error changing password. Please try again.");

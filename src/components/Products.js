@@ -49,8 +49,6 @@ function Products() {
                 name: newProduct.name,
                 price: parseFloat(newProduct.price),
                 category: { id: parseInt(newProduct.categoryId) },
-                // Optionally include imageUrl if updating and image not changed.
-                ...(editing ? {} : {})
             })], { type: 'application/json' }));
             // Append the image file if available.
             console.log('imageFile', imageFile);
@@ -96,7 +94,7 @@ function Products() {
     };
 
     const getImageUrl = (imageUrl) => {
-        // Assuming product.imageUrl is "sporty-shoes-images/filename.jpg"
+        // Assuming imageUrl is "sporty-shoes-images/filename.jpg"
         const parts = imageUrl.split('/');
         const filename = parts[parts.length - 1];
         return `/images/${filename}`;
