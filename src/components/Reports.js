@@ -1,6 +1,7 @@
 // src/components/Reports.js
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import {PORTFORBE} from "../util/constants";
 
 function Reports() {
     const [startDate, setStartDate] = useState('2025-01-01');
@@ -21,7 +22,7 @@ function Reports() {
             if (categoryId) {
                 params.categoryId = categoryId;
             }
-            const response = await axios.get('http://localhost:8080/admin/reports/purchases', { params });
+            const response = await axios.get(`http://localhost:${PORTFORBE}/admin/reports/purchases`, { params });
             setReports(response.data);
         } catch (error) {
             console.error(error);

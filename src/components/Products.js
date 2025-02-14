@@ -1,6 +1,7 @@
 // src/components/Products.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {PORTFORBE} from "../util/constants";
 
 function Products() {
     const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ function Products() {
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/admin/products');
+            const response = await axios.get(`http://localhost:${PORTFORBE}/admin/products`);
             setProducts(response.data);
         } catch (error) {
             console.error(error);
@@ -57,12 +58,12 @@ function Products() {
                 formData.append('image', imageFile);
             }
             if (editing) {
-                await axios.put(`http://localhost:8080/admin/products/${editing}`, formData, {
+                await axios.put(`http://localhost:${PORTFORBE}/admin/products/${editing}`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
                 setEditing(null);
             } else {
-                await axios.post('http://localhost:8080/admin/products', formData, {
+                await axios.post(`http://localhost:${PORTFORBE}/admin/products`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
             }
@@ -87,7 +88,7 @@ function Products() {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8080/admin/products/${id}`);
+            await axios.delete(`http://localhost:${PORTFORBE}/admin/products/${id}`);
             fetchProducts();
         } catch (error) {
             console.error(error);

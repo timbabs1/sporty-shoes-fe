@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {PORTFORBE} from "../util/constants";
 
 function ChangePassword({ admin }) {
     const [newPassword, setNewPassword] = useState('');
@@ -20,7 +21,7 @@ function ChangePassword({ admin }) {
             // Call the change-password endpoint.
             // Note: In production, you should pass credentials in a safer way.
             await axios.put(
-                `http://localhost:8080/admin/change-password?adminId=${admin.id}&newPassword=${encodeURIComponent(newPassword)}`
+                `http://localhost:${PORTFORBE}/admin/change-password?adminId=${admin.id}&newPassword=${encodeURIComponent(newPassword)}`
             );
             setMessage("Password changed successfully.");
             // Optionally, navigate away or clear the form

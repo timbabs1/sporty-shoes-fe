@@ -1,6 +1,7 @@
 // src/components/Users.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {PORTFORBE} from "../util/constants";
 
 function Users() {
     const [users, setUsers] = useState([]);
@@ -8,7 +9,7 @@ function Users() {
 
     const fetchUsers = async (searchKeyword = '') => {
         try {
-            const response = await axios.get('http://localhost:8080/admin/users', {
+            const response = await axios.get(`http://localhost:${PORTFORBE}/admin/users`, {
                 params: { keyword: searchKeyword },
             });
             setUsers(response.data);

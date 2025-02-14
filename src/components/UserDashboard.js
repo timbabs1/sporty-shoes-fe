@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {PORTFORBE} from "../util/constants";
 
 function UserDashboard({ user, setUser }) {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ function UserDashboard({ user, setUser }) {
     const fetchProducts = async () => {
         try {
             // Reusing the endpoint for getting products.
-            const response = await axios.get('http://localhost:8080/admin/products');
+            const response = await axios.get(`http://localhost:${PORTFORBE}/admin/products`);
             setProducts(response.data);
             // Initialize quantity for each product to 1.
             const initialQuantities = {};
@@ -80,9 +81,10 @@ function UserDashboard({ user, setUser }) {
             items: orderItems,
         };
         try {
-            await axios.post("http://localhost:8080/purchases", payload);
+            await axios.post(`http://localhost:${PORTFORBE}/purchases`, payload);
             alert("Order placed successfully!");
             setCart([]); // Clear the cart after ordering.
+            setQuantities({}); // Reset quantities to 1.
         } catch (error) {
             console.error("Error placing order", error);
             alert("Error placing order.");

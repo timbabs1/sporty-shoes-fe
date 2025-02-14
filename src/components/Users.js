@@ -1,6 +1,7 @@
 // src/components/Users.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {PORTFORBE} from "../util/constants";
 
 function Users() {
     const [users, setUsers] = useState([]);
@@ -11,7 +12,7 @@ function Users() {
     // Fetch users from the backend, optionally filtered by a search keyword.
     const fetchUsers = async (searchKeyword = '') => {
         try {
-            const response = await axios.get('http://localhost:8080/admin/users', {
+            const response = await axios.get(`http://localhost:${PORTFORBE}/admin/users`, {
                 params: { keyword: searchKeyword },
             });
             setUsers(response.data);
@@ -44,11 +45,11 @@ function Users() {
             if (editingUser) {
                 // Update existing user.
                 // If password is empty, it won't be updated.
-                await axios.put(`http://localhost:8080/admin/users/${editingUser.id}`, userForm);
+                await axios.put(`http://localhost:${PORTFORBE}/admin/users/${editingUser.id}`, userForm);
                 setEditingUser(null);
             } else {
                 // Create new user.
-                await axios.post('http://localhost:8080/admin/users', userForm);
+                await axios.post(`http://localhost:${PORTFORBE}/admin/users`, userForm);
             }
             // Reset the form and refresh the user list.
             setUserForm({ username: '', email: '', password: '' });
@@ -68,7 +69,7 @@ function Users() {
     // Delete a user by ID.
     const handleDelete = async (userId) => {
         try {
-            await axios.delete(`http://localhost:8080/admin/users/${userId}`);
+            await axios.delete(`http://localhost:${PORTFORBE}/admin/users/${userId}`);
             fetchUsers();
         } catch (error) {
             console.error(error);
